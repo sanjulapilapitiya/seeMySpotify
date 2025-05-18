@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["assets/*"]
+    },
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": ["assets/**/*"]
+}
