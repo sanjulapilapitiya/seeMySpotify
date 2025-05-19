@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <button @click="loginWithSpotify">Login with Spotify</button>
+  <div class="d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+    <button @click="loginWithSpotify">See My Spotify</button>
   </div>
 </template>
 

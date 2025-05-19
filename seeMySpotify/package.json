@@ -29,6 +29,7 @@
     "author": "",
     "description": "",
     "dependencies": {
+        "bootstrap": "^5.3.6",
         "vue-router": "^4.5.1"
     }
 }
