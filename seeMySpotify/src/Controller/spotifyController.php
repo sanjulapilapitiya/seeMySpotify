@@ -14,7 +14,8 @@ class spotifyController extends AbstractController
     #[Route('/spotify/login', name: 'spotify_login')]
     public function login()
     {
-        $redirectUri = 'https://127.0.0.1:8000/spotify/callback'; // Change for prod
+        $host = $_SERVER['HTTP_HOST'] ?? '127.0.0.1:8000';
+        $redirectUri = 'https://' . $host . '/spotify/callback';
         $scopes = 'user-read-private user-read-email user-top-read';
 
         $authorizeUrl = 'https://accounts.spotify.com/authorize?' . http_build_query([
@@ -42,7 +43,8 @@ class spotifyController extends AbstractController
             return new Response('Authorization code not found');
         }
 
-        $redirectUri = 'https://127.0.0.1:8000/spotify/callback';
+        $host = $_SERVER['HTTP_HOST'] ?? '127.0.0.1:8000';
+        $redirectUri = 'https://' . $host . '/spotify/callback';
 
         $tokenUrl = 'https://accounts.spotify.com/api/token';
 
