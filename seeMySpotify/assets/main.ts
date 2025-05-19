@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
-import login from './components/login.vue';
+import App from './app.vue';
+import router from './router'; // assuming you created router.ts as before
 
-const app = createApp(login);
-app.mount('#app');
+createApp(App)
+  .use(router)
+  .mount('#app');

@@ -1,7 +1,5 @@
 <?php
 
-// src/Controller/SpotifyController.php
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +14,11 @@ class spotifyController extends AbstractController
     #[Route('/spotify/login', name: 'spotify_login')]
     public function login()
     {
-        $clientId = getenv('SPOTIFY_CLIENT_ID');
-        $redirectUri = 'http://localhost:8000/spotify/callback'; // Change for prod
-        $scopes = 'user-read-private user-read-email';
+        $redirectUri = 'https://127.0.0.1:8000/spotify/callback'; // Change for prod
+        $scopes = 'user-read-private user-read-email user-top-read';
 
         $authorizeUrl = 'https://accounts.spotify.com/authorize?' . http_build_query([
-            'client_id' => $clientId,
+            'client_id' => $_ENV['SPOTIFY_CLIENT_ID'],
             'response_type' => 'code',
             'redirect_uri' => $redirectUri,
             'scope' => $scopes,
@@ -45,9 +42,7 @@ class spotifyController extends AbstractController
             return new Response('Authorization code not found');
         }
 
-        $clientId = getenv('SPOTIFY_CLIENT_ID');
-        $clientSecret = getenv('SPOTIFY_CLIENT_SECRET');
-        $redirectUri = 'http://localhost:8000/spotify/callback';
+        $redirectUri = 'https://127.0.0.1:8000/spotify/callback';
 
         $tokenUrl = 'https://accounts.spotify.com/api/token';
 
@@ -57,7 +52,7 @@ class spotifyController extends AbstractController
             'redirect_uri' => $redirectUri,
         ];
 
-        $basicAuth = base64_encode($clientId . ':' . $clientSecret);
+        $basicAuth = base64_encode($_ENV['SPOTIFY_CLIENT_ID'] . ':' . $_ENV['SPOTIFY_CLIENT_SECRET']);
 
         $client = HttpClient::create();
 
@@ -71,10 +66,10 @@ class spotifyController extends AbstractController
 
         $data = $response->toArray();
 
-        if (isset($data['access_token'])) {
-            $accessToken = $data['access_token'];
-            return new Response('Access Token: ' . htmlspecialchars($accessToken));
-        }
+    if (isset($data['access_token'])) {
+        $accessToken = $data['access_token'];
+        return new RedirectResponse('/spotify-dashboard?s=' . urlencode($accessToken));
+    }
 
         return new Response('Failed to get access token');
     }

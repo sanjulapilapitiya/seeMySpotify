@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1>Hello from Vue!</h1>
-    <p>This is a basic Vue component running inside Symfony.</p>
-    <p>another test to see if git has the correct branch</p>
+    <button @click="loginWithSpotify">Login with Spotify</button>
   </div>
 </template>
 
@@ -11,5 +9,11 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'login',
+  methods: {
+    loginWithSpotify() {
+      window.location.href = '/spotify/login'; // Symfony backend route
+    }
+  }
 });
 </script>
+
